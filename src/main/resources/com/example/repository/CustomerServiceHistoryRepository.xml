@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.repository.CustomerServiceHistoryRepository">
+
+	<resultMap type="com.example.domain.CustomerService" id="csMap">
+		<id property="id" column="id"/>
+		<result property="date" column="date"/>
+		<result property="detail" column="detail"/>
+		<result property="storeName" column="store_name"/>
+		<result property="staffName" column="staff_name"/>
+		<result property="customerServicePurposeId" column="c_s_p_id"/>
+		<result property="customerServiceMeanId" column="c_s_p_id"/>
+		<collection property="customerServicePurpose" ofType="com.example.domain.CustomerServicePurpose">
+			<id property="id" column="c_s_p_id"></id>
+			<result property="name" column="c_s_p_name"/>
+		</collection>
+		<collection property="customerServiceMean" ofType="com.example.domain.CustomerServiceMean">
+			<id property="id" column="c_s_m_id"></id>
+			<result property="name" column="c_s_m_name"/>
+		</collection>
+	</resultMap>
+	
+	<select id="findByUserId" resultMap="csMap">
+		select 
+			date, 
+			detail, 
+			c_s_m.name as c_s_m_name, 
+			c_s_m.id as c_s_m_id, 
+			c_s_p.name as c_s_p_name, 
+			c_s_p.id as c_s_p_id, 
+			store_name, 
+			staff_name 
+		from customer_service_history as c_s_h 
+		join  customer_service_purpose as c_s_p on c_s_h.customer_service_purpose_id = c_s_p.id 
+		join  customer_service_means as c_s_m on  c_s_h.customer_service_mean_id = c_s_m.id 
+		where c_s_h.user_id = #{userId}
+	
+	</select>
+
+</mapper>
