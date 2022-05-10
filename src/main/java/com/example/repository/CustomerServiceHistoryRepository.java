@@ -9,5 +9,5 @@ import com.example.domain.CustomerService;
 @Mapper
 public interface CustomerServiceHistoryRepository {
 
-	public List<CustomerService> findByUserId(Integer userId);
+	List<CustomerService> findByUserId(Integer userId);
 }

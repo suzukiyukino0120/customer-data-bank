@@ -28,25 +28,27 @@
     顧客検索
   </div>
   <div class="card-body">
+  <form th:action="@{/user/search}" method="post" th:object="${searchUsersForm}">
 	<div class="col-md-12">
   	<label for="exampleFormControlInput1" class="form-label">顧客番号</label>
-  	<input type="text" class="form-control" id="userId">
+  	<input type="text" class="form-control" id="userId" th:field="*{userId}">
 	</div>
 	<div class="col-md-12">
   	<label for="exampleFormControlInput1" class="form-label">氏名</label>
-  	<input type="text" class="form-control" id="name">
+  	<input type="text" class="form-control" id="name" th:field="*{name}">
 	</div>
 	<div class="col-md-12">
   	<label for="exampleFormControlInput1" class="form-label">生年月日</label>
-  	<input type="date" class="form-control" id="birthday">
+  	<input type="date" class="form-control" id="birthday" th:field="*{birthday}">
 	</div>
 	<div class="col-md-12">
   	<label for="exampleFormControlInput1" class="form-label">電話番号</label>
-  	<input type="text" class="form-control" id="telephone">
+  	<input type="text" class="form-control" id="telephone" th:field="*{telephone}">
 	</div>
 	<div class="mt-2 text-center">
-	<button type="button" class="btn btn-primary">検索</button>
+	<button type="submit" class="btn btn-primary">検索</button>
 	</div>
+	</form>
   </div>
 </div>
 </div>
@@ -62,22 +64,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
+    <tr th:each="user:${userList}">
+      <th scope="row">
+      	<form th:action="@{/cs/toUserDetail}" method="post">
+		<input type="hidden" name="userId" th:value="${user.id}">      	
+		<button class="btn btn-sm btn-link" type="submit" th:text="${user.id}"></button>
+      	</form>
+      </th>
+      <td th:text="${user.name}"></td>
+      <td th:text="${user.birthday}"></td>
+      <td th:text="${user.telephone}"></td>
     </tr>
   </tbody>
 </table>

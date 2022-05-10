@@ -2,12 +2,15 @@ package com.example.form;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class SearchUsersForm {
 	
 	private Integer userId;
 	
 	private String name;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthday;
 	
 	private String telephone;
