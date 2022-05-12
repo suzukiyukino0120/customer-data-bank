@@ -39,9 +39,6 @@ public class SearchUserContoroller {
 	public String searcUserList(SearchUsersForm form, Model model) {
 		model.addAttribute("userList", searchUserService.findUserList(form.getUserId(), form.getName(), form.getBirthday(), form.getTelephone()));
 	
-		System.out.println(form);
-		System.out.println(searchUserService.findUserList(form.getUserId(), form.getName(), form.getBirthday(), form.getTelephone()));
-		
 		return "search";
 		
 	}

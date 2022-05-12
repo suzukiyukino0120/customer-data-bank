@@ -26,5 +26,9 @@ public class SearchUserService {
 		
 		return userList;
 	}
-
+	
+	
+	public User findUserById(Integer userId){
+		return userRepository.findUserById(userId);
+	}
 }

@@ -32,4 +32,8 @@
   		</if>
   	</where>
   </select>
+  
+  <select id="findUserById" resultMap="userMap">
+  	select * from users where id = #{userId}
+  </select>
 </mapper>

@@ -7,6 +7,8 @@ public class Staff {
 	private String name;
 	
 	private Integer storeId;
+	
+	private String password;
 
 	public Integer getId() {
 		return id;
@@ -30,6 +32,14 @@ public class Staff {
 
 	public void setStoreId(Integer storeId) {
 		this.storeId = storeId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

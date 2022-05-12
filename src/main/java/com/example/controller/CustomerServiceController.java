@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.CustomerService;
 import com.example.service.CustomerServiceService;
+import com.example.service.SearchUserService;
 
 @Controller
 @RequestMapping("/cs")
@@ -18,6 +19,9 @@ public class CustomerServiceController {
 	@Autowired
 	private CustomerServiceService customerServiceService;
 	
+	@Autowired
+	private SearchUserService searchUserService;
+	
 //	@ModelAttribute
 //	private 
 	
@@ -25,9 +29,8 @@ public class CustomerServiceController {
 	@RequestMapping("/toUserDetail")
 	public String find(Model model, Integer userId) {
 		
-		List<CustomerService> cslist = customerServiceService.findCSHistoryByUserId(userId);
-		
-		model.addAttribute("cslist", cslist);
+		model.addAttribute("user", searchUserService.findUserById(userId));
+		model.addAttribute("csList", customerServiceService.findCSHistoryByUserId(userId));
 		
 		return "user-detail";
 	}

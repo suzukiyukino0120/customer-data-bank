@@ -1,12 +1,12 @@
 package com.example.domain;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class CustomerService {
 	
 	private Integer id;
 		
-	private LocalDateTime date;
+	private LocalDate date;
 	
 	private Integer userId;
 	
@@ -36,11 +36,11 @@ public class CustomerService {
 		this.id = id;
 	}
 
-	public LocalDateTime getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

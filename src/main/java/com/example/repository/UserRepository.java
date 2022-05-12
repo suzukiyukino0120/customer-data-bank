@@ -15,5 +15,7 @@ public interface UserRepository {
 						@Param("name") String name, 
 						@Param("birthday") LocalDate birthday,
 						@Param("telephone") String telephone);
+	
+	User findUserById(Integer userId);
 
 }
