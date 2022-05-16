@@ -1,7 +1,5 @@
 package com.example.service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,17 +23,34 @@ public class CustomerServiceService {
 				
 		List<CustomerService> list = customerServiceHistoryRepository.findByUserId(userId);
 		
-		List<CustomerService> resultList
-			= list.stream()
-				  .sorted(Comparator.comparing(CustomerService::getDate, Comparator.reverseOrder()))
-				  .collect(Collectors.toList());
-				
-		return resultList;
+		return sortDESC(list);
 	}
 	
 	public void recordCS(CustomerService cs) {
 		customerServiceHistoryRepository.insertCS(cs);
 	}
+	
+	public List<CustomerService> sortASC(List<CustomerService> list){
+		List<CustomerService> resultList=
+		list.stream()
+			.sorted(Comparator.comparing(CustomerService::getDate)
+					.thenComparing(CustomerService::getId))
+			.collect(Collectors.toList());
+		
+		return resultList;
+	}
+	
+	public List<CustomerService> sortDESC(List<CustomerService> list){
+		List<CustomerService> resultList=
+		list.stream()
+		.sorted(Comparator.comparing(CustomerService::getDate, Comparator.reverseOrder())
+				  .thenComparing(CustomerService::getId, Comparator.reverseOrder()))
+		.collect(Collectors.toList());
+		
+		return resultList;
+	}
+	
+	
 	
 	
 

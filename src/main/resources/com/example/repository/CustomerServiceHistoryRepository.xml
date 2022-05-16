@@ -21,7 +21,8 @@
 	</resultMap>
 	
 	<select id="findByUserId" resultMap="csMap">
-		select 
+		select
+			c_s_h.id,  
 			date, 
 			detail, 
 			c_s_m.name as c_s_m_name, 
@@ -45,7 +46,8 @@
 				staff_id, 
 				staff_name, 
 				customer_service_purpose_id, 
-				customer_service_mean_id) 
+				customer_service_mean_id, 
+				detail) 
 		values (#{date}, 
 				#{userId}, 
 				#{storeId}, 
@@ -53,7 +55,8 @@
 				#{staffId}, 
 				#{staffName}, 
 				#{customerServicePurposeId}, 
-				#{customerServiceMeanId})
+				#{customerServiceMeanId}, 
+				#{detail})
 	</insert>
 
 </mapper>
