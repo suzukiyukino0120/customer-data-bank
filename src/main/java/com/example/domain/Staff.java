@@ -8,6 +8,8 @@ public class Staff {
 	
 	private Integer storeId;
 	
+	private Store store;
+	
 	private String password;
 
 	public Integer getId() {
@@ -34,6 +36,14 @@ public class Staff {
 		this.storeId = storeId;
 	}
 
+	public Store getStore() {
+		return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -44,11 +54,7 @@ public class Staff {
 
 	@Override
 	public String toString() {
-		return "Staff [id=" + id + ", name=" + name + ", storeId=" + storeId + "]";
+		return "Staff [id=" + id + ", name=" + name + ", storeId=" + storeId + ", store=" + store + ", password="
+				+ password + "]";
 	}
-
-	
-	
-	
-
 }

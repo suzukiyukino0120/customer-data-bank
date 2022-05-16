@@ -28,13 +28,18 @@
     	ログイン
   		</div>
   		<div class="card-body">
-		<form th:action="@{/admin/login}" method="post">
+		<form th:action="@{/staff/login}" method="post" th:object="${loginForm}">
 			<div class="col-md-12">
+			<div th:text="${loginError}" style="color: red"></div>
+			</div>
+			<div class="col-md-12">
+			<div th:errors="*{staffId}" style="color: red"></div>
 		  	<label for="exampleFormControlInput1" class="form-label">社員番号</label>
 		  	<input type="text" class="form-control" id="staffId" th:field="*{staffId}">
 			</div>
 			<div class="col-md-12">
 		  	<label for="exampleFormControlInput1" class="form-label">パスワード</label>
+		  	<div th:errors="*{password}" style="color: red"></div>
 		  	<input type="text" class="form-control" id="password" th:field="*{password}">
 			</div>
 			<div class="mt-2 text-center">

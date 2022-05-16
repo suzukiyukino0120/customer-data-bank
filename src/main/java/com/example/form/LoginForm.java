@@ -1,9 +1,14 @@
 package com.example.form;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class LoginForm {
 	
+	@NotNull(message="社員番号を入力してください")
 	private Integer staffId;
 	
+	@NotBlank(message="パスワードを入力してください")
 	private String password;
 
 	public Integer getStaffId() {

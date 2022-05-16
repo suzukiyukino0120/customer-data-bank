@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.repository.StaffRepository">
+
+<resultMap type="com.example.domain.Staff" id="staffMap">
+	<id property="id" column="staff_id"/>
+	<result property="name" column="staff_name"/>
+	<result property="storeId" column="store_id"/>
+	<result property="password" column="password"/>
+	<collection property="store" ofType="com.example.domain.Store">
+	<id property="id" column="store_id"/>
+	<result property="name" column="store_name"/>
+	</collection>
+</resultMap>
+
+<select id="findByIdAndPassword" resultMap="staffMap">
+	select staff.id as staff_id, 
+		   staff.name as staff_name, 
+		   password, 
+		   store.id as store_id, 
+		   store.name as store_name  
+	from staffs as staff 
+	join stores as store on staff.store_id = store.id
+	where staff.id = #{staffId} 
+	and password = #{password}
+</select>
+
+</mapper>
