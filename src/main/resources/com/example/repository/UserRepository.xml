@@ -21,13 +21,13 @@
   		<if test="userId != null">
   			AND id = #{userId}
   		</if>
-  		<if test="telephone != telephone">
+  		<if test="telephone != null">
   			AND id = #{telephone}
   		</if>
   		<if test="name != null">
   			AND name = #{name}
   		</if>
-  		<if test="birthday != birthday">
+  		<if test="birthday != null">
   			AND birthday = #{birthday}
   		</if>
   	</where>
