@@ -25,18 +25,20 @@
 <div class="mx-auto mt-5 px-5">
 	<div class="card">
   		<div class="card-header text-center">
-    	<div th:text="${user.id} +'&nbsp;&nbsp;'+${user.name}"></div>
+    	<div th:text="${session.user.id} +'&nbsp;&nbsp;'+${session.user.name}"></div>
   		</div>
   		<div class="card-body">
-  		<div th:text="'生年月日：' + ${user.birthday}"></div><br>
-  		<div th:text="'電話番号：' + ${user.telephone}"></div><br>
-  		<div th:text="'郵便番号：' +${user.zipcode}"></div><br>
-  		<div th:text="'住所：' +${user.address}"></div><br>
+  		<div th:text="'生年月日：' + ${session.user.birthday}"></div><br>
+  		<div th:text="'電話番号：' + ${session.user.telephone}"></div><br>
+  		<div th:text="'郵便番号：' +${session.user.zipcode}"></div><br>
+  		<div th:text="'住所：' +${session.user.address}"></div><br>
   		</div>
   </div>
 </div>
 
-<button type="button" class="btn btn-outline-primary m-3">新規記録作成</button>
+<form th:action="@{/cs/toRecord}" method="post">
+<button type="submit" class="btn btn-outline-primary m-3">新規記録作成</button>
+</form>
 
 <div class="mx-auto mt-3">
 <table class="table">

@@ -10,4 +10,6 @@ import com.example.domain.CustomerService;
 public interface CustomerServiceHistoryRepository {
 
 	List<CustomerService> findByUserId(Integer userId);
+	
+	void insertCS(CustomerService customer);
 }

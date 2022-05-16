@@ -33,6 +33,9 @@ public class CustomerServiceService {
 		return resultList;
 	}
 	
+	public void recordCS(CustomerService cs) {
+		customerServiceHistoryRepository.insertCS(cs);
+	}
 	
 	
 

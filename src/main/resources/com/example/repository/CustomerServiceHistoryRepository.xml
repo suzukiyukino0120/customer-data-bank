@@ -34,7 +34,26 @@
 		join  customer_service_purpose as c_s_p on c_s_h.customer_service_purpose_id = c_s_p.id 
 		join  customer_service_means as c_s_m on  c_s_h.customer_service_mean_id = c_s_m.id 
 		where c_s_h.user_id = #{userId}
-	
 	</select>
+	
+	<insert id="insertCS">
+		insert into customer_service_history 
+				(date, 
+				user_id, 
+				store_id, 
+				store_name, 
+				staff_id, 
+				staff_name, 
+				customer_service_purpose_id, 
+				customer_service_mean_id) 
+		values (#{date}, 
+				#{userId}, 
+				#{storeId}, 
+				#{storeName}, 
+				#{staffId}, 
+				#{staffName}, 
+				#{customerServicePurposeId}, 
+				#{customerServiceMeanId})
+	</insert>
 
 </mapper>

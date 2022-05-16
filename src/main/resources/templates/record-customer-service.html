@@ -24,39 +24,55 @@
 
 <div class="mx-auto mt-5 px-5">
 	<div class="card">
-	<form>
+	<form th:action="@{/cs/record}" th:object="${customerServiceHistoryForm}" method="post">
 	<div class="form-group">
   		<div class="card-header text-center">
-    	000000 suzuki
+    	<div th:text="${session.user.id} +'&nbsp;&nbsp;'+ ${session.user.name}"></div>
   		</div>
   		<div class="card-body">
-  				2022-02-22　&nbsp;&nbsp;
-  				新宿店　&nbsp;&nbsp;
-  				鈴木	
+  			<input type="date" name="date" th:field="*{date}" id="today" disabled>&nbsp;&nbsp;
+  			<input type="text" name="storeName" th:field="*{storeName}" th:value="${session.loginStaff.store.name}" th:placeholder="${session.loginStaff.store.name}" disabled>&nbsp;&nbsp;
+  			<input type="text" name="staffName" th:field="*{staffName}" th:value ="${session.loginStaff.name}" th:placeholder="${session.loginStaff.name}" disabled>
   		
   			<div class="form-check form-check-inline">
-			  	<select class="form-select m-1" aria-label="Default select example">
-			  		<option selected>手段</option>
-			  		<option value="1">One</option>
-			  		<option value="2">Two</option>
-			  	    <option value="3">Three</option>
+			<div th:errors="*{customerServicePurposeId}" style="color:red"></div>
+			  	<select name="customerServicePurpose" th:field="*{customerServicePurposeId}" class="form-select m-1" aria-label="Default select example">
+			  		<option value=1>訪問</option>
+			  		<option value=2>来店</option>
+			  	    <option value=3>電話</option>
+			  	    <option value=4>メール</option>
+			  	    <option value=5>Web会議</option>
+			  	    <option value=6>郵送</option>
+			  	    <option value=7>その他</option>
 				</select>
 			</div>
 			<div class="form-check form-check-inline">
-				<select class="form-select m-1" aria-label="Default select example">
-			  		<option selected>目的</option>
-			 		<option value="1">One</option>
-			 		<option value="2">Two</option>
-			  		<option value="3">Three</option>
+			<div th:errors="*{customerServiceMeanId}" style="color:red"></div>
+				<select name="customerServiceMean" th:field="*{customerServiceMeanId}" class="form-select m-1" aria-label="Default select example">
+			 		<option value=1>新規アプローチ</option>
+			 		<option value=2>定期挨拶</option>
+			  		<option value=3>提案</option>
+			  		<option value=4>申込受付</option>
+			  		<option value=5>契約</option>
+			  		<option value=6>復活新規</option>
+			  		<option value=7>クレーム対応</option>
+			  		<option value=8>問い合わせ</option>
+			  		<option value=9>その他</option>
 				</select>
 			</div>
 			<br>
 		<div class="mb-3">
   			<label for="exampleFormControlTextarea1" class="form-label">詳細</label>
- 			<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+ 			<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="detail" th:field="*{detail}"></textarea>
 		</div>
 		<div class="mt-2 text-center">
-			<button type="button" class="btn btn-primary">追加</button>
+		<input type="hidden" name=userId th:value="${session.user.id}">
+		<input type="hidden" name=storeId th:value="${session.loginStaff.store.id}">
+		<input type="hidden" name=storeName th:value="${session.loginStaff.store.name}">
+		<input type="hidden" name=staffId th:value="${session.loginStaff.id}">
+		<input type="hidden" name=staffName th:value="${session.loginStaff.name}">
+		<input type="hidden" name=date th:value="${new java.time.Localdate.now()}">
+			<button type="submit" class="btn btn-primary">追加</button>
 		</div>
   		</div>
   </div>
@@ -67,5 +83,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script th:src="@{/js/today.js}"></script>
 </body>
 </html>

@@ -1,16 +1,27 @@
 package com.example.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.CustomerService;
+import com.example.domain.Staff;
+import com.example.domain.User;
+import com.example.form.CustomerServiceHistoryForm;
 import com.example.service.CustomerServiceService;
 import com.example.service.SearchUserService;
+import com.fasterxml.jackson.databind.deser.impl.BeanPropertyMap;
 
 @Controller
 @RequestMapping("/cs")
@@ -22,17 +33,51 @@ public class CustomerServiceController {
 	@Autowired
 	private SearchUserService searchUserService;
 	
-//	@ModelAttribute
-//	private 
+	@Autowired
+	private HttpSession session;
+	
+	@ModelAttribute
+	private CustomerServiceHistoryForm setUpCustomerServiceHistoryForm() {
+		
+		return new CustomerServiceHistoryForm();
+	}
 	
 	
 	@RequestMapping("/toUserDetail")
-	public String find(Model model, Integer userId) {
+	public String find(Integer userId, Model model) {
 		
-		model.addAttribute("user", searchUserService.findUserById(userId));
+		session.setAttribute("user", searchUserService.findUserById(userId));
 		model.addAttribute("csList", customerServiceService.findCSHistoryByUserId(userId));
 		
 		return "user-detail";
+	}
+	
+	@RequestMapping("/toRecord")
+	public String toRecord() {
+		return "record-customer-service";
+	}
+	
+	@RequestMapping("/record")
+	public String record(@Validated CustomerServiceHistoryForm form, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			return "record-customer-service";
+		}
+		
+		User user = (User) session.getAttribute("user");
+		Staff loginStaff = (Staff) session.getAttribute("loginStaff");
+		
+		CustomerService cs = new CustomerService();
+		BeanUtils.copyProperties(form, cs);
+		cs.setDate(LocalDate.now());
+		cs.setUserId(user.getId());
+		cs.setStoreId(loginStaff.getStore().getId());
+		cs.setStoreName(loginStaff.getStore().getName());
+		cs.setStaffId(loginStaff.getId());
+		cs.setStaffName(loginStaff.getName());
+
+		customerServiceService.recordCS(cs);
+		
+		return find(user.getId(), model);
 	}
 
 }
