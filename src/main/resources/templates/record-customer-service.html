@@ -6,16 +6,21 @@
 <title>顧客対応記録</title>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-dark">
-	<div class="container-fluid">
-    <a class="navbar-brand" href="#">顧客データバンク</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/staff/index}">顧客データバンク</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" th:href="@{/user/index}" style="color:white">検索</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" 
+          th:href="@{/cs/toUserDetail?userId=}+${session.user.id}" th:text="${session.user.name}">
+          </a>
         </li>
       </ul>
     </div>
@@ -30,13 +35,13 @@
     	<div th:text="${session.user.id} +'&nbsp;&nbsp;'+ ${session.user.name}"></div>
   		</div>
   		<div class="card-body">
-  			<input type="date" name="date" th:field="*{date}" id="today" disabled>&nbsp;&nbsp;
-  			<input type="text" name="storeName" th:field="*{storeName}" th:value="${session.loginStaff.store.name}" th:placeholder="${session.loginStaff.store.name}" disabled>&nbsp;&nbsp;
-  			<input type="text" name="staffName" th:field="*{staffName}" th:value ="${session.loginStaff.name}" th:placeholder="${session.loginStaff.name}" disabled>
-  		
+  			<input type="date" name="date" id="today" disabled>&nbsp;&nbsp;
+  			<input type="text" name="storeName" th:placeholder="${session.loginStaff.store.name}" disabled>&nbsp;&nbsp;
+  			<input type="text" name="staffName" th:placeholder="${session.loginStaff.name}" disabled>
+  		<br><br>
+  		手段：
   			<div class="form-check form-check-inline">
-			<div th:errors="*{customerServicePurposeId}" style="color:red"></div>
-			  	<select name="customerServicePurpose" th:field="*{customerServicePurposeId}" class="form-select m-1" aria-label="Default select example">
+				<select name="customerServiceMeanId" th:field="*{customerServiceMeanId}" class="form-select m-1" aria-label="Default select example">
 			  		<option value=1>訪問</option>
 			  		<option value=2>来店</option>
 			  	    <option value=3>電話</option>
@@ -45,10 +50,12 @@
 			  	    <option value=6>郵送</option>
 			  	    <option value=7>その他</option>
 				</select>
-			</div>
-			<div class="form-check form-check-inline">
 			<div th:errors="*{customerServiceMeanId}" style="color:red"></div>
-				<select name="customerServiceMean" th:field="*{customerServiceMeanId}" class="form-select m-1" aria-label="Default select example">
+			</div>
+		<br>
+		方法：
+			<div class="form-check form-check-inline">
+			  	<select name="customerServicePurposeId" th:field="*{customerServicePurposeId}" class="form-select m-1" aria-label="Default select example">
 			 		<option value=1>新規アプローチ</option>
 			 		<option value=2>定期挨拶</option>
 			  		<option value=3>提案</option>
@@ -59,19 +66,14 @@
 			  		<option value=8>問い合わせ</option>
 			  		<option value=9>その他</option>
 				</select>
+			<div th:errors="*{customerServicePurposeId}" style="color:red"></div>
 			</div>
-			<br>
+			<br><br>
 		<div class="mb-3">
-  			<label for="exampleFormControlTextarea1" class="form-label">詳細</label>
+  		詳細：
  			<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="detail" th:field="*{detail}"></textarea>
 		</div>
 		<div class="mt-2 text-center">
-		<input type="hidden" name=userId th:value="${session.user.id}">
-		<input type="hidden" name=storeId th:value="${session.loginStaff.store.id}">
-		<input type="hidden" name=storeName th:value="${session.loginStaff.store.name}">
-		<input type="hidden" name=staffId th:value="${session.loginStaff.id}">
-		<input type="hidden" name=staffName th:value="${session.loginStaff.name}">
-		<input type="hidden" name=date th:value="${new java.time.Localdate.now()}">
 			<button type="submit" class="btn btn-primary">追加</button>
 		</div>
   		</div>

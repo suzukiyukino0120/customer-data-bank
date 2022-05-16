@@ -6,16 +6,21 @@
 <title>顧客詳細</title>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-dark">
-	<div class="container-fluid">
-    <a class="navbar-brand" href="#">顧客データバンク</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/staff/index}">顧客データバンク</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" th:href="@{/user/index}" style="color:white">検索</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" 
+          th:href="@{/cs/toUserDetail?userId=}+${session.user.id}" th:text="${session.user.name}">
+          </a>
         </li>
       </ul>
     </div>
@@ -44,7 +49,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col" width="13%">対応日</th>
+      <th scope="col" width="13%" id="sort">対応日</th>
       <th scope="col" width="10%">対応店舗</th>
       <th scope="col" width="12%">担当者</th>
       <th scope="col" width="10%">手段</th>
@@ -59,7 +64,11 @@
       <td th:text="${cs.staffName}"></td>
       <td th:text="${cs.customerServiceMean.name}"></td>
       <td th:text="${cs.customerServicePurpose.name}"></td>
-      <td th:text="${cs.detail}"></td>
+      <td>
+      	<th:block th:if="${cs.detail != null}" th:each="detail, stat : ${cs.detail.split('\r\n|\r|\n', -1)}">
+	  	<div th:text="${detail}"></div>
+	  	</th:block>
+      </td>
     </tr>
   </tbody>
 </table>

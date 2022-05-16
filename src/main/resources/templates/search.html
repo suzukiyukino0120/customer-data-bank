@@ -6,16 +6,16 @@
 <title>顧客データバンク</title>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-dark">
-	<div class="container-fluid">
-    <a class="navbar-brand" href="#">顧客データバンク</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/staff/index}">顧客データバンク</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" th:href="@{/user/index}" style="color:white">検索</a>
         </li>
       </ul>
     </div>
@@ -31,19 +31,19 @@
   <form th:action="@{/user/search}" method="post" th:object="${searchUsersForm}">
 	<div class="col-md-12">
   	<label for="exampleFormControlInput1" class="form-label">顧客番号</label>
-  	<input type="text" class="form-control" id="userId" th:field="*{userId}">
+  	<input type="text" class="form-control" id="userId" name="userId" th:field="*{userId}">
 	</div>
 	<div class="col-md-12">
   	<label for="exampleFormControlInput1" class="form-label">氏名</label>
-  	<input type="text" class="form-control" id="name" th:field="*{name}">
+  	<input type="text" class="form-control" id="name" name="name" th:field="*{name}">
 	</div>
 	<div class="col-md-12">
   	<label for="exampleFormControlInput1" class="form-label">生年月日</label>
-  	<input type="date" class="form-control" id="birthday" th:field="*{birthday}">
+  	<input type="date" class="form-control" id="birthday" name="birthday" th:field="*{birthday}">
 	</div>
 	<div class="col-md-12">
   	<label for="exampleFormControlInput1" class="form-label">電話番号</label>
-  	<input type="text" class="form-control" id="telephone" th:field="*{telephone}">
+  	<input type="text" class="form-control" id="telephone" name="telephone" th:field="*{telephone}">
 	</div>
 	<div class="mt-2 text-center">
 	<button type="submit" class="btn btn-primary">検索</button>
