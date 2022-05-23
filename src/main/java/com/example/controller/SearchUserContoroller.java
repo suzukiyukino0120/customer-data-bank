@@ -37,6 +37,12 @@ public class SearchUserContoroller {
 	
 	@RequestMapping("/search")
 	public String searcUserList(SearchUsersForm form, Model model) {
+		if(form.getUserId()==null && 
+		   form.getName()==null && 
+		   form.getBirthday()==null &&
+		   form.getTelephone()==null) {
+			model.addAttribute("searchError", "ŒŸõğŒ‚ğˆê‚ÂˆÈã“ü—Í‚µ‚Ä‚­‚¾‚³‚¢");
+		}
 		model.addAttribute("userList", searchUserService.findUserList(form.getUserId(), form.getName(), form.getBirthday(), form.getTelephone()));
 		return "search";
 		

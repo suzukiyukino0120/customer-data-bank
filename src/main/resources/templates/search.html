@@ -28,6 +28,7 @@
     顧客検索
   </div>
   <div class="card-body">
+  <div th:text="${searchError}" style="color:red"></div>
   <form th:action="@{/user/search}" method="post" th:object="${searchUsersForm}">
 	<div class="col-md-12">
   	<label for="exampleFormControlInput1" class="form-label">顧客番号</label>
